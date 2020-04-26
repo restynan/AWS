@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.io.File;
 import java.util.List;
 
 
@@ -44,12 +45,30 @@ public class DemoawsApplication {
         try {
             DemoUser user = mapper.readValue(stream, DemoUser.class);
             System.out.println(user);
+/*
+            //creating  a new bucket
+            if(!s3.doesBucketExistV2(DESTINATION_BUCKET_NAME))
+            s3.createBucket(DESTINATION_BUCKET_NAME);
+
+
+            //modifying userdemo and create a new test file, then it to DESTINATION_BUCKET_NAME bucket
+            user.setFirstName("Dan");
+            user.setSecondName("Ahikiriza");
+            user.setAge(32);
+
+            File file =new File("test.txt");
+            mapper.writeValue(file,user);
+           // s3.putObject(DESTINATION_BUCKET_NAME,"test.txt",file);
+*/
+              //deleting a file from a bucket
+            s3.deleteObject(DESTINATION_BUCKET_NAME,"fat.txt");
+
+
         } catch (Exception e) {
             e.printStackTrace();
 
         }
-        //creating  a new bucket
-        s3.createBucket(DESTINATION_BUCKET_NAME);
+        
 
 
 
